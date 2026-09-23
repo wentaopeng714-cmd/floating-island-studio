@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#172233">
+  <meta name="application-name" content="floating-island-studio">
+  <title>浮岛造物所 · 3D 场景 DIY</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+    <main class="stage" id="stage" aria-label="3D 浮岛场景">
+      <div class="canvas-wrap" id="canvasWrap"></div>
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">✦</span><span><strong>浮岛造物所</strong><small>FLOATING ISLAND STUDIO</small></span></div>
+        <div class="top-actions">
+          <span class="autosave"><i></i> 自动保存</span>
+          <div class="weather-control">
+            <button class="weather-button" id="weatherBtn" aria-label="切换天气" aria-expanded="false"><span id="weatherIcon">☀</span><span id="weatherLabel">晴朗</span><span class="caret">⌄</span></button>
+            <div class="weather-menu" id="weatherMenu" hidden aria-label="天气选项"></div>
+          </div>
+          <div class="music-control" id="musicControl"><button class="icon-button" id="musicBtn" title="开启背景音乐" aria-label="开启背景音乐" aria-pressed="false">♫</button><input id="musicVolume" type="range" min="0" max="100" value="45" aria-label="音乐音量" title="音乐音量"></div>
+          <button class="icon-button" id="helpBtn" title="操作说明" aria-label="操作说明">?</button>
+          <button class="icon-button" id="shotBtn" title="导出图片" aria-label="导出图片">↗</button>
+        </div>
+      </header>
+      <nav class="tool-rail" aria-label="编辑工具">
+        <button class="rail-button active" data-mode="place" title="放置素材 (1)"><span>✦</span><small>放置</small></button>
+        <button class="rail-button" data-mode="select" title="选择素材 (2)"><span>↖</span><small>选择</small></button>
+        <button class="rail-button" data-mode="erase" title="擦除素材或边缘地块 (3)"><span>⌫</span><small>擦除</small></button>
+        <span class="rail-separator"></span>
+        <button class="rail-button" id="rotateBtn" title="旋转选中物件 (R)"><span>⟳</span><small>旋转</small></button>
+        <button class="rail-button" id="undoBtn" title="撤销 (⌘/Ctrl + Z)"><span>↶</span><small>撤销</small></button>
+        <button class="rail-button" id="redoBtn" title="重做 (⌘/Ctrl + Shift + Z)"><span>↷</span><small>重做</small></button>
+      </nav>
+      <div class="scene-info">
+        <span class="eyebrow">YOUR LITTLE WORLD</span>
+        <h1>把想象放进这座岛</h1>
+        <p>拖动画面旋转 · 滚轮缩放 · 点击地面放置</p>
+      </div>
+      <div class="view-controls">
+        <button id="zoomIn" title="放大" aria-label="放大">＋</button>
+        <button id="zoomOut" title="缩小" aria-label="缩小">－</button>
+        <button id="resetView" title="重置视角" aria-label="重置视角">⌖</button>
+      </div>
+      <div class="selected-tip" id="selectedTip" hidden></div>
+      <div class="toast" id="toast" aria-live="polite"></div>
+    </main>
+    <section class="workbench" aria-label="素材工作台">
+      <div class="workbench-head">
+        <div class="workbench-title"><span class="panel-handle"></span><div><span class="eyebrow">THE MAKER'S SHELF</span><h2>素材工作台 <em id="catalogCount">60</em></h2></div></div>
+        <div class="project-actions">
+          <button id="newBtn">新建</button>
+          <button id="exportBtn">导出场景</button>
+          <button id="importBtn">导入场景</button>
+          <input id="importInput" type="file" accept=".json,application/json" hidden>
+        </div>
+      </div>
+      <div class="shelf-top"><div class="category-tabs" id="categoryTabs"></div><label class="search"><span>⌕</span><input id="searchInput" placeholder="搜索 60 种素材" aria-label="搜索素材"></label></div>
+      <div class="catalog" id="catalog"></div>
+      <div class="shelf-footer"><span id="sceneStats">0 个地块 · 0 件作品</span><span>选素材后点击浮岛即可放置 <b>✦</b></span></div>
+    </section>
+  </div>
+  <dialog id="helpDialog">
+    <div class="dialog-head"><span class="eyebrow">QUICK GUIDE</span><button id="closeHelp" aria-label="关闭">×</button></div>
+    <h2>欢迎来到浮岛造物所</h2>
+    <p>从素材工作台挑选建筑、植物、地形或装饰，在岛上点击即可放置。选择“地块”后，点击岛屿边缘可扩建。</p>
+    <div class="guide-grid"><div><strong>旋转视角</strong><span>拖动画面 / 单指拖动</span></div><div><strong>放大缩小</strong><span>滚轮 / 双指缩放</span></div><div><strong>编辑物件</strong><span>选择后拖动、旋转或删除</span></div><div><strong>天气与音乐</strong><span>右上角切换天气、开启音乐</span></div><div><strong>保存作品</strong><span>自动保存，也可导出 JSON</span></div></div>
+    <button class="primary" id="startBtn">开始建造</button>
+  </dialog>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
